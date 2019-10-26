@@ -1,7 +1,7 @@
 use_bpm 60
 
 opening_ring = (ring chord(:a, :minor),
-                chord(:e, :major),
+                chord(:e, :major7),
                 chord(:g, :major),
                 chord(:d, :major),
                 chord(:f, :major),
@@ -11,7 +11,7 @@ opening_ring = (ring chord(:a, :minor),
 
 chorus_ring = (ring chord(:f, :major),
                chord(:c, :major),
-               chord(:e7, :major),
+               chord(:e, :major7),
                chord(:a, :minor),
                chord(:f, :major),
                chord(:c, :major),
@@ -32,24 +32,24 @@ live_loop :ambience do
   use_synth :hollow
   with_fx :gverb do
     with_fx :flanger do
-      play chorus_ring.tick.tick, amp: 0.15, release: 4
-      sleep 1
+      play chorus_ring.tick, amp: 0.15, attack: 1, sustain: 3, release: 0
+      sleep 3
     end
   end
 end
 
 live_loop :disturbance do
-  if one_in(4)
+  if one_in(3)
     with_fx :octaver do
-      sample :glitch_bass_g, amp: 0.75, rate: rrand(-0.1, -0.4), release: 6
+      sample :glitch_bass_g, amp: 2.25, rate: rrand(-0.1, -0.4), release: 6
     end
   end
   sleep 6
 end
 
 live_loop :shout do
-  if one_in(6)
-    sample :ambi_choir, amp: 1.25, rate: 0.5, decay: 2
+  if one_in(5)
+    sample :ambi_choir, amp: 1.25, rate: rrand(0.2, 0.5), release: 2
   end
   sleep 3
 end
